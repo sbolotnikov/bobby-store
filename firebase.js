@@ -1,10 +1,21 @@
-import firebase from "firebase";
+import { initializeApp, getApps, getApp } from 'firebase/app'
+import { getFirestore } from "firebase/firestore"
+
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAJy0b-Fp1qvtaH0DjYXXJJOljI-0K-XAE",
-    authDomain: "bobby-store.firebaseapp.com",
-    projectId: "bobby-store",
-    storageBucket: "bobby-store.appspot.com",
-    messagingSenderId: "142978659816",
-    appId: "1:142978659816:web:7dc51db5aa478c2a5e605d"
-  };
+  apiKey: process.env.STORE_FIREBASE_APIKEY,
+  authDomain: process.env.STORE_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.STORE_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.STORE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.STORE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.STORE_FIREBASE_APP_ID
+};
+
+const app = !getApps().length
+  ? initializeApp(firebaseConfig): getApp();
+
+  const db = getFirestore();
+  export default db;
+
+
+  // databaseURL: process.env.STORE_FIREBASE_DATABASE_URL,
