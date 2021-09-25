@@ -8,14 +8,13 @@ const app = !admin.apps.length
         credential: admin.credential.cert(serviceAccount)
     })
     : admin.app();
-
 // Establish connection to Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
 const fulfillOrder = async (session) => {
-    console.log('Fulfilling order', session);
+    console.log('Fulfilling order', session.id);
 
     return app
         .firestore()
@@ -47,11 +46,11 @@ export default async (req, res) => {
             console.log('Error ', err.message);
             return res.status(400).send(`Webhook error: ${err.message}`)
         }
-
+        console.log(event.type);
         // Handle the checkout.session.completed event
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
-
+            console.log("stripe session done")
             // Fulfill the order... 
             return fulfillOrder(session)
             .then(()=> res.status(200))
