@@ -23,3 +23,4 @@ Run commands
 3) ```yarn run dev```
 
 
+https://youtu.be/6TWGMW7uzoE
